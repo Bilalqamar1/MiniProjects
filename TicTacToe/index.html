@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tic Tac Toe – Bilal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 10px;
+      justify-content: center;
+      margin: 20px auto;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      font-size: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #333;
+      cursor: pointer;
+    }
+    .cell:hover {
+      background-color: #f0f0f0;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Tic Tac Toe</h1>
+<p id="status">Spiller X's tur</p>
+
+<div class="board" id="board"></div>
+
+<button onclick="resetGame()">Genstart spil</button>
+
+<script>
+let board = ["", "", "", "", "", "", "", "", ""];
+let currentPlayer = "X";
+let gameActive = true;
+
+const statusText = document.getElementById("status");
+const boardDiv = document.getElementById("board");
+
+const winConditions = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
+];
+
+function createBoard() {
+  boardDiv.innerHTML = "";
+  board.forEach((cell, index) => {
+    const div = document.createElement("div");
+    div.classList.add("cell");
+    div.textContent = cell;
+    div.onclick = () => handleClick(index);
+    boardDiv.appendChild(div);
+  });
+}
+
+function handleClick(index) {
+  if (!gameActive || board[index] !== "") return;
+
+  board[index] = currentPlayer;
+  createBoard();
+  checkResult();
+}
+
+function checkResult() {
+  for (let condition of winConditions) {
+    const [a, b, c] = condition;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      statusText.textContent = `Spiller ${currentPlayer} vandt!`;
+      gameActive = false;
+      return;
+    }
+  }
+
+  if (!board.includes("")) {
+    statusText.textContent = "Uafgjort!";
+    gameActive = false;
+    return;
+  }
+
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  statusText.textContent = `Spiller ${currentPlayer}'s tur`;
+}
+
+function resetGame() {
+  board = ["", "", "", "", "", "", "", "", ""];
+  currentPlayer = "X";
+  gameActive = true;
+  statusText.textContent = "Spiller X's tur";
+  createBoard();
+}
+
+createBoard();
+</script>
+
+</body>
+</html>
