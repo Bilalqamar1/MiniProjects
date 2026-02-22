@@ -1,6 +1,6 @@
 # MiniProjects – Programmeringsportfolio
 
-Jeg er en ambitiøs IT-interesseret studerende med fokus på softwareudvikling,
+Jeg er en ambitiøs IT-interesseret person med fokus på softwareudvikling,
 dataanalyse og økonomiske systemer. Denne portfolio viser mine praktiske
 projekter og tekniske kompetencer.
 
